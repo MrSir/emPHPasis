@@ -8,8 +8,10 @@
 
 namespace emPHPasis\Pipelines\Passables;
 
-use emPHPasis\Passables\Passable;
-
+/**
+ * Class Initialize
+ * @package emPHPasis\Pipelines\Passables
+ */
 class Initialize extends Passable
 {
     /** @var string DEFAULT_CONFIG_PATH */

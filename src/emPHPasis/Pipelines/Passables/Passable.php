@@ -6,13 +6,13 @@
  * Time: 9:42 AM
  */
 
-namespace emPHPasis\Passables;
+namespace emPHPasis\Pipelines\Passables;
 
 use emPHPasis\Interfaces;
 
 /**
  * Class Passable
- * @package emPHPasis\Passables
+ * @package emPHPasis\Pipelines\Passables
  */
 abstract class Passable implements Interfaces\Passable
 {

@@ -9,24 +9,24 @@
 namespace emPHPasis\Pipelines\Pipes\Initialize;
 
 use Closure;
-use emPHPasis\Exceptions\Pipelines\Pipes\Initialize\GenerateBaseConfigException;
+use emPHPasis\Exceptions\Pipelines\Pipes\Initialize\InsertConfigurationsException;
 use emPHPasis\Pipelines\Passables\Initialize;
 use emPHPasis\Pipelines\Pipes\Pipe;
 use Exception;
 use Throwable;
 
 /**
- * Class GenerateBaseConfig
+ * Class InsertConfigurations
  * @package emPHPasis\Pipelines\Pipes\Initialize
  */
-class GenerateBaseConfig extends Pipe
+class InsertConfigurations extends Pipe
 {
     /**
-     * GenerateBaseConfig constructor.
+     * InsertConfigurations constructor.
      */
     public function __construct()
     {
-        parent::__construct(GenerateBaseConfigException::class);
+        parent::__construct(InsertConfigurationsException::class);
     }
 
     /**
@@ -39,23 +39,24 @@ class GenerateBaseConfig extends Pipe
     public function handle(Initialize &$passable, Closure $next)
     {
         try {
-            // initialize the config
-            $config = [
-                'version' => 'v1.0.0',
-                'project' => 'My Project',
-                'authors' => [
-                    'My Name',
-                ],
-                'license' => 'MIT',
-                'reports' => [],
-                'configurations' => [],
-            ];
+            // grab the parameters from the passable
+            $code = $passable->getCode();
+            $result = $passable->getResult();
+            $config = $passable->getConfig();
 
-            // set the config
-            $passable->setConfig($config);
+            // skip the pipe if the previous has failed
+            if ($code == 200) {
+                // set the reports section
+                $config['configurations'] = [
+                    'directory' => 'build/emPHPasis/',
+                ];
 
-            $code = 200;
-            $result = ['message' => 'Success'];
+                // reset the config
+                $passable->setConfig($config);
+
+                $code = 200;
+                $result = ['message' => 'Success'];
+            }
 
             // set the code and result
             $passable->setCode($code);

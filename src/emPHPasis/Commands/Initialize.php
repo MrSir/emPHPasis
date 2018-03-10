@@ -32,7 +32,7 @@ class Initialize extends Command
             ->addArgument(
                 'path',
                 InputArgument::OPTIONAL,
-                'The path in which to put the config file.'
+                'The path in which to put the config file. Default "./".'
             );
     }
 
@@ -51,5 +51,6 @@ class Initialize extends Command
         $result = $pipeline->flush();
 
         //TODO figure out what to do with the result
+        $output->write(print_r($result,true));
     }
 }

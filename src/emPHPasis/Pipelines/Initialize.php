@@ -9,8 +9,15 @@
 namespace emPHPasis\Pipelines;
 
 use emPHPasis\Pipelines\Passables;
+use emPHPasis\Pipelines\Pipes\Initialize\CreateConfig;
 use emPHPasis\Pipelines\Pipes\Initialize\GenerateBaseConfig;
+use emPHPasis\Pipelines\Pipes\Initialize\InsertConfigurations;
+use emPHPasis\Pipelines\Pipes\Initialize\InsertReportsPaths;
 
+/**
+ * Class Initialize
+ * @package emPHPasis\Pipelines
+ */
 class Initialize extends Pipeline
 {
     /**
@@ -20,10 +27,14 @@ class Initialize extends Pipeline
      *
      * @return $this
      */
-    public function fill(string $path = Passables\Initialize::DEFAULT_CONFIG_PATH)
+    public function fill(string $path = null)
     {
         $passable = new Passables\Initialize();
-        $passable->setPath($path);
+        $passable->setPath(Passables\Initialize::DEFAULT_CONFIG_PATH);
+
+        if ($path !== null && $path != '') {
+            $passable->setPath($path);
+        }
 
         $this->setPassable($passable);
 
@@ -40,14 +51,15 @@ class Initialize extends Pipeline
             ->through(
                 [
                     GenerateBaseConfig::class,
-                    //TODO insert report directories
-                    //TODO template configuration settings
-                    //TODO format config and write file
+                    InsertReportsPaths::class,
+                    InsertConfigurations::class,
+                    CreateConfig::class,
                 ]
             )
             ->then(
                 function (Passables\Initialize $passable) {
-                    return $passable->getResponse();
+                    //TODO resolve what the pipe returns
+                    return $passable->getConfig();
                 }
             );
     }
