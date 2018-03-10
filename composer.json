@@ -1,0 +1,41 @@
+{
+  "name": "mrsir/emphpasis",
+  "description": "A tool for generating rich readable static analysis reports.",
+  "keywords": [
+    "static analysis",
+    "PHP",
+    "emPHPasis"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=7.0",
+  },
+  "require-dev": {},
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "emPHPasis\\": "src/emPHPasis/",
+      "emPHPasis\\Tests\\": "tests/emPHPasis/"
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      ""
+    ],
+    "post-install-cmd": [
+      ""
+    ],
+    "post-update-cmd": [
+      ""
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
+}
