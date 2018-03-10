@@ -1,5 +1,5 @@
-.idea
-.vagrant
-.git
-vendor
-
+/.idea
+/.vagrant
+/vendor
+/html
+/emPHPasis
