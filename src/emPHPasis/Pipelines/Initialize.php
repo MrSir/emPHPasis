@@ -8,18 +8,22 @@
 
 namespace emPHPasis\Pipelines;
 
-use emPHPasis\Passables\Passable;
+use emPHPasis\Pipelines\Passables;
+use emPHPasis\Pipelines\Pipes\Initialize\GenerateBaseConfig;
 
 class Initialize extends Pipeline
 {
     /**
      * This is the fill function, it initializes the pipeline
      *
+     * @param string $path
+     *
      * @return $this
      */
-    public function fill()
+    public function fill(string $path = Passables\Initialize::DEFAULT_CONFIG_PATH)
     {
-        $passable = new Passable();
+        $passable = new Passables\Initialize();
+        $passable->setPath($path);
 
         $this->setPassable($passable);
 
@@ -28,20 +32,21 @@ class Initialize extends Pipeline
 
     /**
      * This is the flush function, it executes the entire pipe
-     * @return Passable
+     * @return Passables\Initialize
      */
     public function flush()
     {
         return $this->send($this->getPassable())
             ->through(
                 [
-                    //TODO generate base json object
+                    GenerateBaseConfig::class,
                     //TODO insert report directories
                     //TODO template configuration settings
+                    //TODO format config and write file
                 ]
             )
             ->then(
-                function (Passable $passable) {
+                function (Passables\Initialize $passable) {
                     return $passable->getResponse();
                 }
             );

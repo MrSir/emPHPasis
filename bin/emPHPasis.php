@@ -3,7 +3,7 @@
 <?php
 
 // autoload the vendor directory
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 // instantiate the console application
 use Symfony\Component\Console\Application;

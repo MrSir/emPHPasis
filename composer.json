@@ -24,16 +24,16 @@
   },
   "scripts": {
     "post-root-package-install": [
-      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      ""
+      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "[ -f vendor/bin/emPHPasis ] || cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ],
     "post-install-cmd": [
-      ""
+      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "[ -f vendor/bin/emPHPasis ] || cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ],
     "post-update-cmd": [
-      ""
+      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ]
   },
   "config": {

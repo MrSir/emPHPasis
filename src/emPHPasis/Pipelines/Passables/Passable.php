@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: mtochev
+ * User: MrSir
  * Date: 5/23/2017
  * Time: 9:42 AM
  */
@@ -11,10 +11,10 @@ namespace emPHPasis\Passables;
 use emPHPasis\Interfaces;
 
 /**
- * Class Base
+ * Class Passable
  * @package emPHPasis\Passables
  */
-class Passable implements Interfaces\Passable
+abstract class Passable implements Interfaces\Passable
 {
     /** @var int $code */
     protected $code;
