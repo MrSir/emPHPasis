@@ -54,7 +54,8 @@ class GenerateBaseConfig extends Pipe
             // set the config
             $passable->setConfig($config);
 
-            $code = 200;
+            // set the successful code and result
+            $code = $passable::SUCCESS_CODE;
             $result = ['message' => 'Success'];
 
             // set the code and result

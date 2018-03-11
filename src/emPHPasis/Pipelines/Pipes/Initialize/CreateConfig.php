@@ -44,18 +44,20 @@ class CreateConfig extends Pipe
             $result = $passable->getResult();
 
             // skip the pipe if the previous has failed
-            if ($code == 200) {
+            if ($code == $passable::SUCCESS_CODE) {
                 // grab the config information from the passable
                 $path = $passable->getPath();
                 $fileName = $passable::DEFAULT_CONFIG_FILE;
                 $config = $passable->getConfig();
+
+                // json encode the config
                 $jsonConfig = json_encode(
                     $config,
                     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
                 );
 
                 // set the failure results
-                $code = 500;
+                $code = $passable::EXCEPTION_CODE;
                 $result = ['errors' => 'Failed to write file.'];
 
                 // write the file
@@ -66,7 +68,11 @@ class CreateConfig extends Pipe
 
                 // assert for successful file creation
                 if ($writeFileResult) {
-                    $code = 200;
+                    // set the filePath
+                    $passable->setFilePath($path . $fileName);
+
+                    // set the successful code and result
+                    $code = $passable::SUCCESS_CODE;
                     $result = ['message' => 'Success'];
                 }
             }

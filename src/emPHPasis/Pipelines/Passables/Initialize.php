@@ -26,6 +26,9 @@ class Initialize extends Passable
     /** @var string $path */
     protected $path = '';
 
+    /** @var string $filePath */
+    protected $filePath = '';
+
     /**
      * @return array
      */
@@ -56,5 +59,21 @@ class Initialize extends Passable
     public function setPath(string $path): void
     {
         $this->path = $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilePath(): string
+    {
+        return $this->filePath;
+    }
+
+    /**
+     * @param string $filePath
+     */
+    public function setFilePath(string $filePath): void
+    {
+        $this->filePath = $filePath;
     }
 }

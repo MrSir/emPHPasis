@@ -16,6 +16,12 @@ use emPHPasis\Interfaces;
  */
 abstract class Passable implements Interfaces\Passable
 {
+    /** @var int SUCCESS_CODE */
+    const SUCCESS_CODE = 200;
+
+    /** @var int EXCEPTION_CODE */
+    const EXCEPTION_CODE = 500;
+
     /** @var int $code */
     protected $code;
 

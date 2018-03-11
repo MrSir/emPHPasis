@@ -8,6 +8,7 @@
 
 namespace emPHPasis\Commands;
 
+use Carbon\Carbon;
 use emPHPasis\Pipelines;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -38,7 +39,7 @@ class Initialize extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Generating default config");
+        $output->writeln(Carbon::now() . " Generating default config");
 
         $pipeline = new Pipelines\Initialize();
         $pipeline->fill();
@@ -48,9 +49,10 @@ class Initialize extends Command
             $pipeline->fill($input->getArgument('path'));
         }
 
-        $result = $pipeline->flush();
+        $passable = $pipeline->flush();
 
-        //TODO figure out what to do with the result
-        $output->write(print_r($result,true));
+        if ($passable->getCode() == $passable::SUCCESS_CODE) {
+            $output->writeln(Carbon::now() . ' Configuration file generated successfully: ' . $passable->getFilePath());
+        }
     }
 }

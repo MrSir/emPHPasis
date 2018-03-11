@@ -11,7 +11,8 @@
   "require": {
     "php": ">=7.2",
     "hirak/prestissimo": "0.3.7",
-    "symfony/console": "v4.0.6"
+    "symfony/console": "v4.0.6",
+    "carbondate/carbon": "1.23.2"
   },
   "require-dev": {},
   "minimum-stability": "dev",
@@ -24,15 +25,15 @@
   },
   "scripts": {
     "post-root-package-install": [
-      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "mkdir -p vendor/bin && rm -f vendor/bin/emPHPasis",
       "[ -f vendor/bin/emPHPasis ] || cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ],
     "post-install-cmd": [
-      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "mkdir -p vendor/bin && rm -f vendor/bin/emPHPasis",
       "[ -f vendor/bin/emPHPasis ] || cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ],
     "post-update-cmd": [
-      "mkdir -p vendor/bin && rm vendor/bin/emPHPasis",
+      "mkdir -p vendor/bin && rm -f vendor/bin/emPHPasis",
       "cp vendor/MrSir/emPHPasis/bin/emPHPasis.php vendor/bin/emPHPasis"
     ]
   },

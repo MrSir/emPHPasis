@@ -45,7 +45,7 @@ class InsertConfigurations extends Pipe
             $config = $passable->getConfig();
 
             // skip the pipe if the previous has failed
-            if ($code == 200) {
+            if ($code == $passable::SUCCESS_CODE) {
                 // set the reports section
                 $config['configurations'] = [
                     'directory' => 'build/emPHPasis/',
@@ -54,7 +54,8 @@ class InsertConfigurations extends Pipe
                 // reset the config
                 $passable->setConfig($config);
 
-                $code = 200;
+                // set the successful code and result
+                $code = $passable::SUCCESS_CODE;
                 $result = ['message' => 'Success'];
             }
 

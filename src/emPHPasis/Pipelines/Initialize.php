@@ -58,8 +58,7 @@ class Initialize extends Pipeline
             )
             ->then(
                 function (Passables\Initialize $passable) {
-                    //TODO resolve what the pipe returns
-                    return $passable->getConfig();
+                    return $passable;
                 }
             );
     }
