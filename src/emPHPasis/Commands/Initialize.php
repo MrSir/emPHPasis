@@ -11,8 +11,8 @@ namespace emPHPasis\Commands;
 use Carbon\Carbon;
 use emPHPasis\Pipelines;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -23,21 +23,29 @@ class Initialize extends Command
 {
     /**
      * This function registers the console command and its signature
-     *
      * @return void
      */
-    protected function configure() : void
+    protected function configure(): void
     {
         $this->setName('emPHPasis:initialize')
             ->setDescription('Generate default config file.')
-            ->addArgument(
-                'path',
-                InputArgument::OPTIONAL,
+            ->addOption(
+                '--path',
+                '-p',
+                InputOption::VALUE_REQUIRED,
                 'The path in which to put the config file. Default "./".'
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * This function executes the command
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
+    protected function execute(InputInterface $input, OutputInterface $output) : void
     {
         $output->writeln(Carbon::now() . " Generating default config");
 
@@ -45,8 +53,8 @@ class Initialize extends Command
         $pipeline->fill();
 
         // refill the pipe if the path is provided
-        if ($input->hasArgument('path')) {
-            $pipeline->fill($input->getArgument('path'));
+        if ($input->hasOption('path')) {
+            $pipeline->fill($input->getOption('path'));
         }
 
         $passable = $pipeline->flush();

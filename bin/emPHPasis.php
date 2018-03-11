@@ -13,6 +13,7 @@ $application = new Application();
 
 // register commands
 $application->add(new Commands\Initialize());
+$application->add(new Commands\Generate());
 
 try {
     $application->run();
