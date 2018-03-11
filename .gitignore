@@ -3,3 +3,5 @@
 /vendor
 /html
 /emPHPasis
+/build/coverage
+/build/logs

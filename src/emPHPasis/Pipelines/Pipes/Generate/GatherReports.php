@@ -32,7 +32,7 @@ class GatherReports extends Pipe
 
     /**
      * @param Generate $passable
-     * @param Closure    $next
+     * @param Closure  $next
      *
      * @return mixed
      * @throws Exception
@@ -46,7 +46,7 @@ class GatherReports extends Pipe
 
             // skip the pipe if the previous has failed
             if ($code == $passable::SUCCESS_CODE) {
-               $decodedConfig = $passable->getDecodedConfig();
+                $decodedConfig = $passable->getDecodedConfig();
 
                 // set the successful code and result
                 $code = $passable::EXCEPTION_CODE;
@@ -79,7 +79,7 @@ class GatherReports extends Pipe
 
                     // set PHPMD flags
                     if (property_exists($decodedConfig->reports, 'phpmd')) {
-                       $passable->setPmdReport(true);
+                        $passable->setPmdReport(true);
                     }
 
                     // set PHPCS flags
