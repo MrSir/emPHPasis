@@ -48,19 +48,20 @@ class InsertReportsPaths extends Pipe
             if ($code == $passable::SUCCESS_CODE) {
                 // set the reports section
                 $config['reports'] = [
+                    'phpdox' => 'build/phpdox/xml/source.xml',
                     'phpunit' => [
                         'clover' => 'build/logs/clover.xml',
-                        'coverage-xml' => 'build/logs/coverage/index.xml',
-                        'coverage-crap4j' => 'build/logs/crap4j.xml',
+                        'coverage_xml' => 'build/logs/coverage/index.xml',
+                        'coverage_crap4j' => 'build/logs/crap4j.xml',
                         'junit' => 'build/logs/junit.xml',
                     ],
                     'phpmd' => 'build/logs/phpmd.xml',
                     'phpcs' => 'build/logs/checkstyle.xml',
                     'phpcpd' => 'build/logs/pmd-cpd.xml',
                     'pdepend' => [
-                        'jdepend-xml' => 'build/logs/jdepend.xml',
-                        'jdepend-chart' => 'build/pdepend/dependencies.svg',
-                        'overview-pyramid' => 'build/pdepend/overview-pyramid.svg',
+                        'jdepend_xml' => 'build/logs/jdepend.xml',
+                        'jdepend_chart' => 'build/pdepend/dependencies.svg',
+                        'overview_pyramid' => 'build/pdepend/overview-pyramid.svg',
                     ],
                     'phploc' => 'build/logs/phploc.xml',
                 ];

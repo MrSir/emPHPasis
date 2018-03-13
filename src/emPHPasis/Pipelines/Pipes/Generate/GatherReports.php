@@ -54,6 +54,11 @@ class GatherReports extends Pipe
 
                 // set flags
                 if (property_exists($decodedConfig, 'reports')) {
+                    // set PHPDOX flags
+                    if (property_exists($decodedConfig->reports, 'phpdox')) {
+                        $passable->setSourceReport(true);
+                    }
+
                     // set PHPUnit flags
                     if (property_exists($decodedConfig->reports, 'phpunit')) {
                         // set clover flag

@@ -9,12 +9,9 @@
 namespace emPHPasis\Pipelines;
 
 use emPHPasis\Pipelines\Passables;
-use emPHPasis\Pipelines\Pipes\Generate\CreateConfig;
 use emPHPasis\Pipelines\Pipes\Generate\FindConfig;
 use emPHPasis\Pipelines\Pipes\Generate\GatherReports;
-use emPHPasis\Pipelines\Pipes\Generate\GenerateBaseConfig;
-use emPHPasis\Pipelines\Pipes\Generate\InsertConfigurations;
-use emPHPasis\Pipelines\Pipes\Generate\InsertReportsPaths;
+use emPHPasis\Pipelines\Pipes\Generate\PHPDOX;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -62,8 +59,12 @@ class Generate extends Pipeline
         return $this->send($this->getPassable())
             ->through(
                 [
+                    // Setup
                     FindConfig::class,
                     GatherReports::class,
+
+                    // Analyze paths
+                    PHPDOX\BuildBaseJSON::class,
 
                     // PHPUnit Analysis
                     //TODO generate Tests analysis

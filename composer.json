@@ -20,7 +20,8 @@
     "phploc/phploc": "^4.0",
     "pdepend/pdepend": "^2.5",
     "phpmd/phpmd": "^2.6",
-    "sebastian/phpcpd": "3.0.1"
+    "sebastian/phpcpd": "3.0.1",
+    "theseer/phpdox": "0.11.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

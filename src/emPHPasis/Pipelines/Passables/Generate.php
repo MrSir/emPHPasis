@@ -35,6 +35,9 @@ class Generate extends Passable
     /** @var OutputInterface $outputInterface */
     protected $outputInterface;
 
+    /** @var bool $sourceReport */
+    protected $sourceReport = false;
+
     /** @var bool $cloverReport */
     protected $cloverReport = false;
 
@@ -130,6 +133,22 @@ class Generate extends Passable
     public function setOutputInterface(OutputInterface $outputInterface): void
     {
         $this->outputInterface = $outputInterface;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSourceReport(): bool
+    {
+        return $this->sourceReport;
+    }
+
+    /**
+     * @param bool $sourceReport
+     */
+    public function setSourceReport(bool $sourceReport): void
+    {
+        $this->sourceReport = $sourceReport;
     }
 
     /**

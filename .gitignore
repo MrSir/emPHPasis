@@ -5,3 +5,6 @@
 /emPHPasis
 /build/coverage
 /build/logs
+/build/api
+/build/phpdox
+/build/emPHPasis
