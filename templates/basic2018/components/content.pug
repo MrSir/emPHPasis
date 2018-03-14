@@ -1,0 +1,15 @@
+.content-wrapper
+  // Content Header (Page header)
+  section.content-header
+    h1
+      | {{ Route::currentRouteName() }}
+      small Where all the transactions live.
+    ol.breadcrumb
+      li
+        a(href='#')
+          i.fa.fa-dashboard
+          |  Level
+      li.active {{ Route::currentRouteName() }}
+  // Main content
+  section.content
+  // /.content

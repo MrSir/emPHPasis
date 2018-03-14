@@ -54,21 +54,14 @@ class BuildBaseJSON extends Pipe
                 // check if a source xml is present
                 if ($passable->hasSourceReport()) {
                     $decodedConfig = $passable->getDecodedConfig();
-
-                    // delete report directory if it exists
-                    if (file_exists($decodedConfig->configurations->report_directory)) {
-                        $this->rmdirRecursive($decodedConfig->configurations->report_directory);
-                    }
-
-                    // create report directory
-                    mkdir($decodedConfig->configurations->report_directory);
+                    $reportPath = $decodedConfig->configurations->report_path;
 
                     $xml = simplexml_load_file($decodedConfig->reports->phpdox);
 
                     $sourceArray = $this->parseDirectory($xml->dir);
                     $sourceJSON = json_encode($sourceArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-                    $file = $decodedConfig->configurations->report_directory . 'source.json';
+                    $file = $reportPath . 'source.json';
                     $this->writeFile($file, $sourceJSON);
 
                     $passable->getOutputInterface()
@@ -130,25 +123,6 @@ class BuildBaseJSON extends Pipe
         ];
 
         return $file;
-    }
-
-    /**
-     * @param $dir
-     */
-    public function rmdirRecursive($dir) {
-        foreach(scandir($dir) as $file) {
-            if ('.' === $file || '..' === $file) {
-                continue;
-            }
-
-            if (is_dir("$dir/$file")) {
-                rmdirRecursive("$dir/$file");
-            } else {
-                unlink("$dir/$file");
-            }
-        }
-
-        rmdir($dir);
     }
 
     /**

@@ -24,7 +24,8 @@
         "phploc": "build/logs/phploc.xml"
     },
     "configurations": {
-        "report_directory": "build/emPHPasis/",
+        "template_path": "templates/basic2018/",
+        "report_path": "build/emPHPasis/",
         "paths": [
             "./src/",
             "./tests/"

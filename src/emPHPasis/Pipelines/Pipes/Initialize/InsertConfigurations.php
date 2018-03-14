@@ -48,6 +48,7 @@ class InsertConfigurations extends Pipe
             if ($code == $passable::SUCCESS_CODE) {
                 // set the reports section
                 $config['configurations'] = [
+                    'template_path' => 'vendor/MrSir/emPHPasis/templates/basic2018/',
                     'report_directory' => 'build/emPHPasis/',
                     'paths' => [
                         "./src/",

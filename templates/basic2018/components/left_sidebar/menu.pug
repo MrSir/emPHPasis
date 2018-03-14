@@ -1,0 +1,40 @@
+ul.sidebar-menu
+  li(class="{ active: active_route == 'Home' }")
+    a(href='/')
+      i.fa.fa-home
+      span Home
+  li(class="{ active: active_route == 'Transactions' }")
+    a(href='/transactions')
+      i.fa.fa-dollar
+      span Transactions
+  li(class="{ active: active_route == 'Accounts' }")
+    a(href='/accounts')
+      i.fa.fa-bank
+      span Accounts
+  li(class="{ active: active_route == 'Categories' }")
+    a(href='/categories')
+      i.fa.fa-filter
+      span Categories
+  li(class="{ active: active_route == 'Frequencies' }")
+    a(href='/frequencies')
+      i.fa.fa-calendar
+      span Frequencies
+  li.treeview(class="{ active: active_route == 'Monthly Report' || active_route == 'Weekly Report'}")
+    a(href='#')
+      i.fa.fa-link
+      span Reports
+      span.pull-right-container
+        i.fa.fa-angle-left.pull-right
+    ul.treeview-menu
+      li(class="{ active: active_route == 'Monthly Report' }")
+        a(href='/report/monthly')
+          i.fa.fa-calendar
+          span Monthly Report
+      li(class="{ active: active_route == 'Bi-Weekly Report' }")
+        a(href='/report/bi-weekly')
+          i.fa.fa-calendar
+          span Bi-Weekly Report
+      li(class="{ active: active_route == 'Weekly Report' }")
+        a(href='/report/weekly')
+          i.fa.fa-calendar
+          span Weekly Report

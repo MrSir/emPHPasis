@@ -9,6 +9,7 @@
 namespace emPHPasis\Pipelines;
 
 use emPHPasis\Pipelines\Passables;
+use emPHPasis\Pipelines\Pipes\Generate\CompileTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\FindConfig;
 use emPHPasis\Pipelines\Pipes\Generate\GatherReports;
 use emPHPasis\Pipelines\Pipes\Generate\PHPDOX;
@@ -62,6 +63,7 @@ class Generate extends Pipeline
                     // Setup
                     FindConfig::class,
                     GatherReports::class,
+                    CompileTemplate::class,
 
                     // Analyze paths
                     PHPDOX\BuildBaseJSON::class,
