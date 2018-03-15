@@ -1,32 +1,7 @@
 header.main-header
   // Logo
-  a.logo(href="{{ route('Home') }}")
+  a.logo(href="index.html")
     span
       | emPHPasis
   // Header Navbar
   nav.navbar.navbar-static-top(role='navigation')
-    // Sidebar toggle button
-    a.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
-      span.sr-only Toggle navigation
-    // Navbar Right Menu
-    .navbar-custom-menu
-      ul.nav.navbar-nav
-        // User Account Menu
-        li.dropdown.user.user-menu
-          // Menu Toggle Button
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            // The user image in the navbar
-            img.user-image(src='https://en.gravatar.com/userimage/113755242/4d4720b66f2b19bdf3b421dcd8d5148d.jpg?size=200', alt='User Image')
-            // hidden-xs hides the username on small devices so only the image appears.
-            span.hidden-xs Mitko Tochev
-          ul.dropdown-menu
-            // The user image in the menu
-            li.user-header
-              img.img-circle(src='https://en.gravatar.com/userimage/113755242/4d4720b66f2b19bdf3b421dcd8d5148d.jpg?size=200', alt='User Image')
-              p
-                | Mitko Tochev
-                small Member since Nov. 2012
-        // Control Sidebar Toggle Button
-        li
-          a(href='#', data-toggle='control-sidebar')
-            i.fa.fa-gears

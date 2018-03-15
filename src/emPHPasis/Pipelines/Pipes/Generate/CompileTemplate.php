@@ -73,7 +73,14 @@ class CompileTemplate extends Pipe
                     $pugEngine = new Pug();
 
                     // compile index file
-                    $indexHtml = $pugEngine->renderFile($templatePath . 'index.pug');
+                    $indexHtml = $pugEngine->renderFile(
+                        $templatePath . 'index.pug',
+                        [
+                            "route" => "index",
+                            "title" => "Dashboard",
+                            "subject" => "Summary of all the analysis."
+                        ]
+                    );
                     $this->writeFile($reportPath . 'index.html', $indexHtml);
 
                     $passable->getOutputInterface()

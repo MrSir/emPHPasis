@@ -1,40 +1,21 @@
 ul.sidebar-menu
-  li(class="{ active: active_route == 'Home' }")
-    a(href='/')
+  li(class=(route==='index' ? "active" : ""))
+    a(href='index.html')
       i.fa.fa-home
-      span Home
-  li(class="{ active: active_route == 'Transactions' }")
-    a(href='/transactions')
+      span Dashboard
+  li(class=(route==='maintainability' ? "active" : ""))
+    a(href='maintainability.html')
       i.fa.fa-dollar
-      span Transactions
-  li(class="{ active: active_route == 'Accounts' }")
-    a(href='/accounts')
+      span Maintainability
+  li(class=(route==='stability' ? "active" : ""))
+    a(href='testability.html')
       i.fa.fa-bank
-      span Accounts
-  li(class="{ active: active_route == 'Categories' }")
-    a(href='/categories')
+      span Testability
+  li(class=(route==='testability' ? "active" : ""))
+    a(href='complexity.html')
       i.fa.fa-filter
-      span Categories
-  li(class="{ active: active_route == 'Frequencies' }")
-    a(href='/frequencies')
+      span Complexity
+  li(class=(route==='scalability' ? "active" : ""))
+    a(href='scalability.html')
       i.fa.fa-calendar
-      span Frequencies
-  li.treeview(class="{ active: active_route == 'Monthly Report' || active_route == 'Weekly Report'}")
-    a(href='#')
-      i.fa.fa-link
-      span Reports
-      span.pull-right-container
-        i.fa.fa-angle-left.pull-right
-    ul.treeview-menu
-      li(class="{ active: active_route == 'Monthly Report' }")
-        a(href='/report/monthly')
-          i.fa.fa-calendar
-          span Monthly Report
-      li(class="{ active: active_route == 'Bi-Weekly Report' }")
-        a(href='/report/bi-weekly')
-          i.fa.fa-calendar
-          span Bi-Weekly Report
-      li(class="{ active: active_route == 'Weekly Report' }")
-        a(href='/report/weekly')
-          i.fa.fa-calendar
-          span Weekly Report
+      span Scalability
