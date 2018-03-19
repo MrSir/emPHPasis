@@ -1,0 +1,32 @@
+body {
+    color: white;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
+    color: #e2e2e2;
+}
+
+.content-wrapper, .right-side, .main-footer {
+    background-color: #606060;
+}
+
+.main-footer, .main-footer a {
+    color: white;
+}
+
+.box{
+    background-color: #4a4a4a;
+}
+
+.box-header, .box-footer{
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.box-footer{
+    border-top: none;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #5a5a5a;
+}

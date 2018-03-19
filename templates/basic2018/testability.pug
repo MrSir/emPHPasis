@@ -1,0 +1,147 @@
+extends components/master.pug
+
+block content
+  // summary boxes
+  .row
+    // Testability Index
+    .col-lg-12.col-md-12.col-xs-12
+      .small-box.bg-green
+        .inner
+          h3
+            | 89
+          p Testability Index
+        .icon
+          i.far.fa-check-circle
+    // number of tests
+    .col-lg-3.col-xs-6
+      .small-box.bg-green
+        .inner
+          h3
+            | 1000
+          p Tests
+        .icon
+          i.fas.fa-check-circle
+    // number of assertions
+    .col-lg-3.col-xs-6
+      .small-box.bg-yellow
+        .inner
+          h3
+            | 3894
+          p Assertions
+        .icon
+          i.fas.fa-exclamation-circle
+    // code coverage
+    .col-lg-3.col-xs-6
+      .small-box.bg-red
+        .inner
+          h3
+            | 33.68
+            sup(style='font-size: 20px') %
+          p Code Coverage
+        .icon
+          i.fas.fa-times-circle
+    // Execution Time
+    .col-lg-3.col-xs-6
+      .small-box.bg-green
+        .inner
+          h3
+            | 1 hour 4 min
+          p Execution Time
+        .icon
+          i.fas.fa-exclamation-circle
+    .col-lg-3.col-xs-6
+      .small-box.bg-red
+        .inner
+          h3
+            | 250/1000
+            sup(style="font-size:20px") (25.00%)
+          p Lines of Code Tested
+        .icon
+          i.fas.fa-times-circle
+    .col-lg-3.col-xs-6
+      .small-box.bg-red
+        .inner
+          h3
+            | 10/345
+            sup(style="font-size:20px") (25.00%)
+          p Methods Tested
+        .icon
+          i.fas.fa-times-circle
+    .col-lg-3.col-xs-6
+      .small-box.bg-red
+        .inner
+          h3
+            | 10/345
+            sup(style="font-size:20px") (25.00%)
+          p Classes Tested
+        .icon
+          i.fas.fa-times-circle
+    .col-lg-3.col-xs-6
+      .small-box.bg-red
+        .inner
+          h3
+            | 10/345
+            sup(style="font-size:20px") (25.00%)
+          p Traits Tested
+        .icon
+          i.fas.fa-times-circle
+  .row
+    .col-xs-12
+      .box.box-success
+        .box-header
+          h3.box-title Bordered Table
+        // /.box-header
+        .box-body
+          table.table.table-striped
+            thead
+              tr
+                th(style='width: 10px') #
+                th Task
+                th Progress
+                th(style='width: 40px') Label
+            tbody
+              tr
+                td 1.
+                td Update software
+                td
+                  .progress.progress-xs
+                    .progress-bar.progress-bar-danger(style='width: 55%')
+                td
+                  span.badge.bg-red 55%
+              tr
+                td 2.
+                td Clean database
+                td
+                  .progress.progress-xs
+                    .progress-bar.progress-bar-yellow(style='width: 70%')
+                td
+                  span.badge.bg-yellow 70%
+              tr
+                td 3.
+                td Cron job running
+                td
+                  .progress.progress-xs.progress-striped.active
+                    .progress-bar.progress-bar-primary(style='width: 30%')
+                td
+                  span.badge.bg-light-blue 30%
+              tr
+                td 4.
+                td Fix and squish bugs
+                td
+                  .progress.progress-xs.progress-striped.active
+                    .progress-bar.progress-bar-success(style='width: 90%')
+                td
+                  span.badge.bg-green 90%
+        // /.box-body
+        .box-footer.clearfix
+          ul.pagination.pagination-sm.no-margin.pull-right
+            li
+              a(href='#') «
+            li
+              a(href='#') 1
+            li
+              a(href='#') 2
+            li
+              a(href='#') 3
+            li
+              a(href='#') »

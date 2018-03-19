@@ -1,21 +1,25 @@
 ul.sidebar-menu
   li(class=(route==='index' ? "active" : ""))
     a(href='index.html')
-      i.fa.fa-home
+      i.fa.fa-home(style="margin-right:5px;")
       span Dashboard
   li(class=(route==='maintainability' ? "active" : ""))
     a(href='maintainability.html')
-      i.fa.fa-dollar
+      i.fas.fa-wrench(style="margin-right:5px;")
       span Maintainability
-  li(class=(route==='stability' ? "active" : ""))
-    a(href='testability.html')
-      i.fa.fa-bank
-      span Testability
   li(class=(route==='testability' ? "active" : ""))
+    a(href='testability.html')
+      i.fas.fa-bug(style="margin-right:5px;")
+      span Testability
+  li(class=(route==='complexity' ? "active" : ""))
     a(href='complexity.html')
-      i.fa.fa-filter
+      i.fab.fa-connectdevelop(style="margin-right:5px;")
       span Complexity
   li(class=(route==='scalability' ? "active" : ""))
     a(href='scalability.html')
-      i.fa.fa-calendar
+      i.fas.fa-chart-line(style="margin-right:5px;")
       span Scalability
+  li(class=(route === 'documentation' ? "active" : ""))
+    a(href='documentation.html')
+      i.fas.fa-info-circle(style="margin-right:5px;")
+      span Documentation

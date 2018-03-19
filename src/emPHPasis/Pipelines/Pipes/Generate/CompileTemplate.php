@@ -73,15 +73,19 @@ class CompileTemplate extends Pipe
                     $pugEngine = new Pug();
 
                     // compile index file
-                    $indexHtml = $pugEngine->renderFile(
-                        $templatePath . 'index.pug',
-                        [
-                            "route" => "index",
-                            "title" => "Dashboard",
-                            "subject" => "Summary of all the analysis."
-                        ]
-                    );
-                    $this->writeFile($reportPath . 'index.html', $indexHtml);
+                    $this->compileIndex($pugEngine, $templatePath, $reportPath);
+
+                    // compile maintainability file
+                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
+
+                    // compile testability file
+                    $this->compileTestability($pugEngine, $templatePath, $reportPath);
+
+                    // compile complexity file
+                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
+
+                    // compile scalability file
+                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
 
                     $passable->getOutputInterface()
                         ->writeln(Carbon::now() . ' Compiled template: ' . $templatePath);
@@ -139,5 +143,45 @@ class CompileTemplate extends Pipe
             $file,
             $data
         );
+    }
+
+    /**
+     * @param Pug    $pugEngine
+     * @param string $templatePath
+     * @param string $reportPath
+     *
+     * @throws Exception
+     */
+    public function compileIndex(Pug $pugEngine, string $templatePath, string $reportPath): void
+    {
+        $indexHtml = $pugEngine->renderFile(
+            $templatePath . 'index.pug',
+            [
+                "route" => "index",
+                "title" => "Dashboard",
+                "subject" => "Summary of all the analysis."
+            ]
+        );
+        $this->writeFile($reportPath . 'index.html', $indexHtml);
+    }
+
+    /**
+     * @param Pug    $pugEngine
+     * @param string $templatePath
+     * @param string $reportPath
+     *
+     * @throws Exception
+     */
+    public function compileTestability(Pug $pugEngine, string $templatePath, string $reportPath): void
+    {
+        $indexHtml = $pugEngine->renderFile(
+            $templatePath . 'testability.pug',
+            [
+                "route" => "testability",
+                "title" => "Testability",
+                "subject" => "Code coverage and test analysis."
+            ]
+        );
+        $this->writeFile($reportPath . 'testability.html', $indexHtml);
     }
 }
