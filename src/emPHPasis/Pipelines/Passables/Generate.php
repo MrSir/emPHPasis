@@ -71,6 +71,9 @@ class Generate extends Passable
     /** @var bool $phplocReport */
     protected $phplocReport = false;
 
+    /** @var array $reportData */
+    protected $reportData = [];
+
     /**
      * @return string
      */
@@ -325,5 +328,21 @@ class Generate extends Passable
     public function setPhplocReport(bool $phplocReport): void
     {
         $this->phplocReport = $phplocReport;
+    }
+
+    /**
+     * @return array
+     */
+    public function getReportData(): array
+    {
+        return $this->reportData;
+    }
+
+    /**
+     * @param array $reportData
+     */
+    public function setReportData(array $reportData): void
+    {
+        $this->reportData = $reportData;
     }
 }

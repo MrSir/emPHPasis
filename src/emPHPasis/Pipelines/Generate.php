@@ -9,10 +9,13 @@
 namespace emPHPasis\Pipelines;
 
 use emPHPasis\Pipelines\Passables;
+use emPHPasis\Pipelines\Pipes\Generate\CompileIndexTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\CompileTemplate;
+use emPHPasis\Pipelines\Pipes\Generate\CompileTestabilityTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\FindConfig;
 use emPHPasis\Pipelines\Pipes\Generate\GatherReports;
 use emPHPasis\Pipelines\Pipes\Generate\PHPDOX;
+use emPHPasis\Pipelines\Pipes\Generate\PHPUnit;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -25,7 +28,7 @@ class Generate extends Pipeline
      * This is the fill function, it initializes the pipeline
      *
      * @param OutputInterface $outputInterface
-     * @param string $path
+     * @param string          $path
      *
      * @return $this
      */
@@ -63,13 +66,14 @@ class Generate extends Pipeline
                     // Setup
                     FindConfig::class,
                     GatherReports::class,
-                    CompileTemplate::class,
 
                     // Analyze paths
-                    PHPDOX\BuildBaseJSON::class,
+                    //PHPDOX\BuildBaseJSON::class,
 
                     // PHPUnit Analysis
-                    //TODO generate Tests analysis
+                    PHPUnit\ReadCoverageXMLReport::class,
+                    PHPUnit\ReadCloverReport::class,
+                    PHPUnit\ReadJUnitReport::class,
                     //TODO generate Code Coverage Analysis
                     //TODO generate Crap analysis
 
@@ -87,6 +91,9 @@ class Generate extends Pipeline
 
                     // Combined Indexes Analysis
                     //TODO
+
+                    CompileIndexTemplate::class,
+                    CompileTestabilityTemplate::class,
                 ]
             )
             ->then(

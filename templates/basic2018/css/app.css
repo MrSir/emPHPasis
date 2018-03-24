@@ -6,6 +6,14 @@ body {
     color: #e2e2e2;
 }
 
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border-top: 1px solid #999;
+}
+
+.table>thead>tr>th {
+    border-bottom: 1px solid #999;
+}
+
 .content-wrapper, .right-side, .main-footer {
     background-color: #606060;
 }

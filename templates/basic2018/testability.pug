@@ -15,127 +15,166 @@ block content
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
-    // number of tests
-    .col-lg-3.col-xs-6
+    .col-lg-4.col-xs-12
       .small-box.bg-green
         .inner
           h3
-            | 1000
-          p Tests
+            | #{analysis.assertionsTestRatio}
+          p Avg. Assertions/Test
         .icon
           i.fas.fa-check-circle
-    // number of assertions
-    .col-lg-3.col-xs-6
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+    .col-lg-4.col-xs-12
+      .small-box.bg-red
+        .inner
+          h3
+            | #{analysis.testsMethodRatio}
+          p Avg Tests/Method
+        .icon
+          i.fas.fa-times-circle
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+    .col-lg-4.col-xs-12
       .small-box.bg-yellow
         .inner
           h3
-            | 3894
-          p Assertions
-        .icon
-          i.fas.fa-exclamation-circle
-    // code coverage
-    .col-lg-3.col-xs-6
-      .small-box.bg-red
-        .inner
-          h3
-            | 33.68
+            | #{analysis.coverageTestRatio}
             sup(style='font-size: 20px') %
-          p Code Coverage
-        .icon
-          i.fas.fa-times-circle
-    // Execution Time
-    .col-lg-3.col-xs-6
-      .small-box.bg-green
-        .inner
-          h3
-            | 1 hour 4 min
-          p Execution Time
+          p Avg Coverage/Test
         .icon
           i.fas.fa-exclamation-circle
-    .col-lg-3.col-xs-6
-      .small-box.bg-red
-        .inner
-          h3
-            | 250/1000
-            sup(style="font-size:20px") (25.00%)
-          p Lines of Code Tested
-        .icon
-          i.fas.fa-times-circle
-    .col-lg-3.col-xs-6
-      .small-box.bg-red
-        .inner
-          h3
-            | 10/345
-            sup(style="font-size:20px") (25.00%)
-          p Methods Tested
-        .icon
-          i.fas.fa-times-circle
-    .col-lg-3.col-xs-6
-      .small-box.bg-red
-        .inner
-          h3
-            | 10/345
-            sup(style="font-size:20px") (25.00%)
-          p Classes Tested
-        .icon
-          i.fas.fa-times-circle
-    .col-lg-3.col-xs-6
-      .small-box.bg-red
-        .inner
-          h3
-            | 10/345
-            sup(style="font-size:20px") (25.00%)
-          p Traits Tested
-        .icon
-          i.fas.fa-times-circle
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+  .row
+    .col-xs-12
+      .box.box-success
+        .box-header
+          h3.box-title Statistics
+        .box-body
+          .col-lg-3.col-xs-6
+            .small-box.bg-green
+              .inner
+                h3
+                  | #{stats.tests.number}
+                p Tests
+              .icon
+                i.fas.fa-check-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-yellow
+              .inner
+                h3
+                  | #{stats.assertions}
+                p Assertions
+              .icon
+                i.fas.fa-exclamation-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-red
+              .inner
+                h3
+                  | #{stats.coverage}
+                  sup(style='font-size: 20px') %
+                p Code Coverage
+              .icon
+                i.fas.fa-times-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-green
+              .inner
+                h3
+                  | #{stats.time}
+                p Execution Time
+              .icon
+                i.fas.fa-exclamation-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-red
+              .inner
+                h3
+                  | #{stats.lines.executed}/#{stats.lines.executable}
+                  sup(style="font-size:20px") (#{stats.lines.percent}%)
+                p Lines of Code Tested
+              .icon
+                i.fas.fa-times-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-red
+              .inner
+                h3
+                  | #{stats.methods.executed}/#{stats.methods.executable}
+                  sup(style="font-size:20px") (#{stats.methods.percent}%)
+                p Methods Tested
+              .icon
+                i.fas.fa-times-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-red
+              .inner
+                h3
+                  | #{stats.classes.executed}/#{stats.classes.executable}
+                  sup(style="font-size:20px") (#{stats.classes.percent}%)
+                p Classes Tested
+              .icon
+                i.fas.fa-times-circle
+          .col-lg-3.col-xs-6
+            .small-box.bg-red
+              .inner
+                h3
+                  | #{stats.traits.executed}/#{stats.traits.executable}
+                  sup(style="font-size:20px") (#{stats.traits.percent}%)
+                p Traits Tested
+              .icon
+                i.fas.fa-times-circle
   .row
     .col-xs-12
       .box.box-success
         .box-header
           h3.box-title Bordered Table
-        // /.box-header
         .box-body
           table.table.table-striped
             thead
               tr
-                th(style='width: 10px') #
-                th Task
-                th Progress
-                th(style='width: 40px') Label
+                th.col-xs-1 #
+                th.col-xs-1 Type
+                th.col-xs-6 File
+                th.text-center.col-xs-2 Code Coverage
+                th.text-center.col-xs-2 Tests
             tbody
               tr
                 td 1.
-                td Update software
+                td Class
+                td src/emPHPasis/Test.php
                 td
                   .progress.progress-xs
-                    .progress-bar.progress-bar-danger(style='width: 55%')
+                    .progress-bar.progress-bar-info(style='width: 55%')
+                      | 55.00%
                 td
-                  span.badge.bg-red 55%
+                  .progress.progress-xs
+                    .progress-bar.progress-bar-success(style='width: 55%', title='55.00%')
+                      | 55 Passed
+                    .progress-bar.progress-bar-warning(style='width: 10%', title='10.00%')
+                      | 10 Skipped
+                    .progress-bar.progress-bar-danger(style='width: 5%', title='5.00%')
+                      | 5 Failed
+                    .progress-bar.progress-bar-danger(style='width: 30%', title='30.00%')
+                      | 30 Errors
               tr
                 td 2.
-                td Clean database
+                td Trait
+                td src/emPHPasis/Traits/Caching.php
                 td
                   .progress.progress-xs
-                    .progress-bar.progress-bar-yellow(style='width: 70%')
+                    .progress-bar.progress-bar-info(style='width: 55%')
+                      | 55.00%
                 td
-                  span.badge.bg-yellow 70%
-              tr
-                td 3.
-                td Cron job running
-                td
-                  .progress.progress-xs.progress-striped.active
-                    .progress-bar.progress-bar-primary(style='width: 30%')
-                td
-                  span.badge.bg-light-blue 30%
-              tr
-                td 4.
-                td Fix and squish bugs
-                td
-                  .progress.progress-xs.progress-striped.active
-                    .progress-bar.progress-bar-success(style='width: 90%')
-                td
-                  span.badge.bg-green 90%
-        // /.box-body
+                  .progress.progress-xs
+                    .progress-bar.progress-bar-success(style='width: 55%', title='55.00%')
+                      | 55 Passed
+                    .progress-bar.progress-bar-warning(style='width: 10%', title='10.00%')
+                      | 10 Skipped
+                    .progress-bar.progress-bar-danger(style='width: 5%', title='5.00%')
+                      | 5 Failed
+                    .progress-bar.progress-bar-danger(style='width: 30%', title='30.00%')
+                      | 30 Errors
         .box-footer.clearfix
           ul.pagination.pagination-sm.no-margin.pull-right
             li

@@ -18,10 +18,10 @@ use Pug\Pug;
 use Throwable;
 
 /**
- * Class CompileTemplate
+ * Class CompileIndexTemplate
  * @package emPHPasis\Pipelines\Pipes\Generate
  */
-class CompileTemplate extends Pipe
+class CompileIndexTemplate extends Pipe
 {
     /**
      * CompileTemplate constructor.
@@ -75,20 +75,9 @@ class CompileTemplate extends Pipe
                     // compile index file
                     $this->compileIndex($pugEngine, $templatePath, $reportPath);
 
-                    // compile maintainability file
-                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
-
-                    // compile testability file
-                    $this->compileTestability($pugEngine, $templatePath, $reportPath);
-
-                    // compile complexity file
-                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
-
-                    // compile scalability file
-                    //$this->compileIndex($pugEngine, $templatePath, $reportPath);
-
+                    // write to output
                     $passable->getOutputInterface()
-                        ->writeln(Carbon::now() . ' Compiled template: ' . $templatePath);
+                        ->writeln(Carbon::now() . ' Compiled index template: ' . $templatePath .'/index.html');
 
                     // set the successful code and result
                     $code = $passable::SUCCESS_CODE;
@@ -163,25 +152,5 @@ class CompileTemplate extends Pipe
             ]
         );
         $this->writeFile($reportPath . 'index.html', $indexHtml);
-    }
-
-    /**
-     * @param Pug    $pugEngine
-     * @param string $templatePath
-     * @param string $reportPath
-     *
-     * @throws Exception
-     */
-    public function compileTestability(Pug $pugEngine, string $templatePath, string $reportPath): void
-    {
-        $indexHtml = $pugEngine->renderFile(
-            $templatePath . 'testability.pug',
-            [
-                "route" => "testability",
-                "title" => "Testability",
-                "subject" => "Code coverage and test analysis."
-            ]
-        );
-        $this->writeFile($reportPath . 'testability.html', $indexHtml);
     }
 }

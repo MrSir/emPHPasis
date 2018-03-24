@@ -67,17 +67,17 @@ class GatherReports extends Pipe
                         }
 
                         // set coverage xml flag
-                        if (property_exists($decodedConfig->reports->phpunit, 'coverage-xml')) {
+                        if (property_exists($decodedConfig->reports->phpunit, 'coverage_xml')) {
                             $passable->setCoverageXMLReport(true);
                         }
 
                         // set coverage crap4j flag
-                        if (property_exists($decodedConfig->reports->phpunit, 'coverage-crap4j')) {
+                        if (property_exists($decodedConfig->reports->phpunit, 'coverage_crap4j')) {
                             $passable->setCoverageCRAP4JReport(true);
                         }
 
                         // set junit flag
-                        if (property_exists($decodedConfig->reports->phpunit, 'coverage-crap4j')) {
+                        if (property_exists($decodedConfig->reports->phpunit, 'junit')) {
                             $passable->setCoverageCRAP4JReport(true);
                         }
                     }
