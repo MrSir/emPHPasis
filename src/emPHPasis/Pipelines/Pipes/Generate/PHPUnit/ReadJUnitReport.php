@@ -66,20 +66,23 @@ class ReadJUnitReport extends Pipe
                     $reportData['phpunit']['junit'] = [
                         'totals' => [
                             'tests' => [
-                                'number' => $testSuiteAttributes->tests,
-                                'errors' => $testSuiteAttributes->errors,
-                                'failures' => $testSuiteAttributes->failures,
-                                'skipped' => $testSuiteAttributes->skipped,
+                                'number' => (int)$testSuiteAttributes->tests,
+                                'errors' => (int)$testSuiteAttributes->errors,
+                                'failures' => (int)$testSuiteAttributes->failures,
+                                'skipped' => (int)$testSuiteAttributes->skipped,
                             ],
-                            'assertions' => $testSuiteAttributes->assertions,
-                            'time' => $this->convertSecondsToHours($testSuiteAttributes->time)
+                            'assertions' => (int)$testSuiteAttributes->assertions,
+                            'time' => (string)$this->convertSecondsToHours($testSuiteAttributes->time),
                         ],
+                        'tests' => [],
                     ];
+
+                    $this->readChildren($xml->testsuite->children(), $reportData);
 
                     $passable->setReportData($reportData);
 
                     $passable->getOutputInterface()
-                        ->writeln(Carbon::now() . ' Read phpunit clover report');
+                        ->writeln(Carbon::now() . ' Read junit report');
 
                     // set the successful code and result
                     $code = $passable::SUCCESS_CODE;
@@ -97,5 +100,33 @@ class ReadJUnitReport extends Pipe
         }
 
         return $next($passable);
+    }
+
+    private function readChildren($testSuites, array &$reportData)
+    {
+        foreach ($testSuites as $testSuite) {
+            $attributes = $testSuite->attributes();
+
+            $passedTests = (int)($attributes->tests - $attributes->errors - $attributes->failures - $attributes->skipped);
+
+            $reportData['phpunit']['junit']['tests'][] = [
+                'class' => (string)$attributes->name,
+                'assertions' => (int)$attributes->assertions,
+                'time' => number_format((float)$attributes->time, 3) . ' s',
+                'tests' => [
+                    'total' => (int)$attributes->tests,
+                    'passed' => $passedTests,
+                    'errors' => (int)$attributes->errors,
+                    'failures' => (int)$attributes->failures,
+                    'skipped' => (int)$attributes->skipped,
+                ],
+                'testsPercentage' => [
+                    'passed' => $this->formatRatio($passedTests, $attributes->tests, true),
+                    'errors' => $this->formatRatio($attributes->errors, $attributes->tests, true),
+                    'failures' => $this->formatRatio($attributes->failures, $attributes->tests, true),
+                    'skipped' => $this->formatRatio($attributes->skipped, $attributes->tests, true),
+                ]
+            ];
+        }
     }
 }

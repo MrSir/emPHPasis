@@ -16,6 +16,7 @@ use emPHPasis\Pipelines\Pipes\Pipe;
 use emPHPasis\Traits\NumberFormatters;
 use Exception;
 use Pug\Pug;
+use stdClass;
 use Throwable;
 
 /**
@@ -69,6 +70,10 @@ class CompileTestabilityTemplate extends Pipe
                     $cloverXML = $reportData['phpunit']['cloverXML'];
                     $junit = $reportData['phpunit']['junit'];
 
+                    $thresholds = $decodedConfig->configurations->thresholds;
+
+                    $tests = $junit['totals']['tests'];
+
                     $data = [
                         'route' => 'testability',
                         'title' => 'Testability',
@@ -76,19 +81,20 @@ class CompileTestabilityTemplate extends Pipe
                         'analysis' => [
                             'assertionsTestRatio' => $this->formatRatio(
                                 $junit['totals']['assertions'],
-                                $junit['totals']['tests']['number']
+                                $tests['number']
                             ),
                             'testsMethodRatio' => $this->formatRatio(
-                                $junit['totals']['tests']['number'],
+                                $tests['number'],
                                 $coverageXML['methods']['executable']
                             ),
-                            'coverageTestRatio' => $this->formatRatio(
-                                $cloverXML['totals']['coverage'],
-                                $junit['totals']['tests']['number']
+                            'percentTestsPassing' => $this->formatRatio(
+                                $tests['number'] - $tests['errors'] - $tests['failures'] - $tests['skipped'],
+                                $tests['number'],
+                                true
                             ),
                         ],
                         'stats' => [
-                            'tests' => $junit['totals']['tests'],
+                            'tests' => $tests,
                             'assertions' => $junit['totals']['assertions'],
                             'coverage' => $cloverXML['totals']['coverage'],
                             'time' => $junit['totals']['time'],
@@ -96,8 +102,20 @@ class CompileTestabilityTemplate extends Pipe
                             'methods' => $coverageXML['methods'],
                             'classes' => $coverageXML['classes'],
                             'traits' => $coverageXML['traits'],
-                        ]
+                        ],
+                        'classes' => [],
+                        'tests' => $junit['tests'],
                     ];
+
+                    // compute analysis classes
+                    foreach(array_keys($data['analysis']) as $key) {
+                        $this->computeClasses($key, $data, $thresholds);
+                    }
+
+                    // compute stats classes
+                    foreach(array_keys($data['stats']) as $key) {
+                        $this->computeClasses($key, $data, $thresholds);
+                    }
 
                     // compile testability file
                     $indexHtml = $pugEngine->renderFile(
@@ -126,6 +144,74 @@ class CompileTestabilityTemplate extends Pipe
         }
 
         return $next($passable);
+    }
+
+    /**
+     * This function computes the appropriate classes for each of the values
+     *
+     * @param string   $key
+     * @param array    $data
+     * @param stdClass $thresholds
+     */
+    private function computeClasses(string $key, array &$data, stdClass $thresholds)
+    {
+        if ($key !== 'time') {
+            $stats = [
+                'tests',
+                'assertions',
+                'coverage',
+                'lines',
+                'methods',
+                'classes',
+                'traits'
+            ];
+
+            switch (in_array($key, $stats)) {
+                case true:
+                    $percentageStats = [
+                        'lines',
+                        'methods',
+                        'classes',
+                        'traits'
+                    ];
+
+                    switch (in_array($key, $percentageStats)) {
+                        case true:
+                            $value = $data['stats'][$key]['percent'];
+
+                            break;
+                        case false:
+                            $value = $data['stats'][$key];
+
+                            break;
+                    }
+
+                    break;
+                case false:
+                    $value = $data['analysis'][$key];
+
+                    break;
+            }
+
+            $data['classes'][$key] = [
+                'backgroundClass' => $thresholds->classes->low->background_class,
+                'iconClass' => $thresholds->classes->low->icon_class
+            ];
+
+            if ($value >= $thresholds->testability->$key->low) {
+                $data['classes'][$key] = [
+                    'backgroundClass' => $thresholds->classes->medium->background_class,
+                    'iconClass' => $thresholds->classes->medium->icon_class
+                ];
+            }
+
+            if ($value >= $thresholds->testability->$key->high) {
+                $data['classes'][$key] = [
+                    'backgroundClass' => $thresholds->classes->high->background_class,
+                    'iconClass' => $thresholds->classes->high->icon_class
+                ];
+            }
+        }
     }
 
     /**

@@ -11,41 +11,41 @@ block content
             | 89
           p Testability Index
         .icon
-          i.far.fa-check-circle
-        a.small-box-footer(href='#')
-          | More info&nbsp;
-          i.fa.fa-arrow-circle-right
-    .col-lg-4.col-xs-12
-      .small-box.bg-green
-        .inner
-          h3
-            | #{analysis.assertionsTestRatio}
-          p Avg. Assertions/Test
-        .icon
           i.fas.fa-check-circle
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
     .col-lg-4.col-xs-12
-      .small-box.bg-red
+      .small-box(class=classes.assertionsTestRatio.backgroundClass)
+        .inner
+          h3
+            | #{analysis.assertionsTestRatio}
+          p Avg. Assertions/Test
+        .icon
+          i.fas(class=classes.assertionsTestRatio.iconClass)
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+    .col-lg-4.col-xs-12
+      .small-box(class=classes.testsMethodRatio.backgroundClass)
         .inner
           h3
             | #{analysis.testsMethodRatio}
           p Avg Tests/Method
         .icon
-          i.fas.fa-times-circle
+          i.fas(class=classes.testsMethodRatio.iconClass)
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
     .col-lg-4.col-xs-12
-      .small-box.bg-yellow
+      .small-box(class=classes.percentTestsPassing.backgroundClass)
         .inner
           h3
-            | #{analysis.coverageTestRatio}
+            | #{analysis.percentTestsPassing}
             sup(style='font-size: 20px') %
-          p Avg Coverage/Test
+          p Tests Passing
         .icon
-          i.fas.fa-exclamation-circle
+          i.fas(class=classes.percentTestsPassing.iconClass)
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
@@ -56,23 +56,23 @@ block content
           h3.box-title Statistics
         .box-body
           .col-lg-3.col-xs-6
-            .small-box.bg-green
+            .small-box(class=classes.tests.backgroundClass)
               .inner
                 h3
                   | #{stats.tests.number}
                 p Tests
               .icon
-                i.fas.fa-check-circle
+                i.fas(class=classes.tests.iconClass)
           .col-lg-3.col-xs-6
-            .small-box.bg-yellow
+            .small-box(class=classes.assertions.backgroundClass)
               .inner
                 h3
                   | #{stats.assertions}
                 p Assertions
               .icon
-                i.fas.fa-exclamation-circle
+                i.fas(class=classes.assertions.iconClass)
           .col-lg-3.col-xs-6
-            .small-box.bg-red
+            .small-box(class=classes.coverage.backgroundClass)
               .inner
                 h3
                   | #{stats.coverage}
@@ -81,15 +81,15 @@ block content
               .icon
                 i.fas.fa-times-circle
           .col-lg-3.col-xs-6
-            .small-box.bg-green
+            .small-box.bg-aqua
               .inner
                 h3
                   | #{stats.time}
                 p Execution Time
               .icon
-                i.fas.fa-exclamation-circle
+                i.fas.fa-question-circle
           .col-lg-3.col-xs-6
-            .small-box.bg-red
+            .small-box(class=classes.lines.backgroundClass)
               .inner
                 h3
                   | #{stats.lines.executed}/#{stats.lines.executable}
@@ -98,32 +98,32 @@ block content
               .icon
                 i.fas.fa-times-circle
           .col-lg-3.col-xs-6
-            .small-box.bg-red
+            .small-box(class=classes.methods.backgroundClass)
               .inner
                 h3
                   | #{stats.methods.executed}/#{stats.methods.executable}
                   sup(style="font-size:20px") (#{stats.methods.percent}%)
                 p Methods Tested
               .icon
-                i.fas.fa-times-circle
+                i.fas(class=classes.methods.iconClass)
           .col-lg-3.col-xs-6
-            .small-box.bg-red
+            .small-box(class=classes.classes.backgroundClass)
               .inner
                 h3
                   | #{stats.classes.executed}/#{stats.classes.executable}
                   sup(style="font-size:20px") (#{stats.classes.percent}%)
                 p Classes Tested
               .icon
-                i.fas.fa-times-circle
+                i.fas(class=classes.classes.iconClass)
           .col-lg-3.col-xs-6
-            .small-box.bg-red
+            .small-box(class=classes.traits.backgroundClass)
               .inner
                 h3
                   | #{stats.traits.executed}/#{stats.traits.executable}
                   sup(style="font-size:20px") (#{stats.traits.percent}%)
                 p Traits Tested
               .icon
-                i.fas.fa-times-circle
+                i.fas(class=classes.traits.iconClass)
   .row
     .col-xs-12
       .box.box-success
@@ -133,57 +133,29 @@ block content
           table.table.table-striped
             thead
               tr
-                th.col-xs-1 #
-                th.col-xs-1 Type
-                th.col-xs-6 File
-                th.text-center.col-xs-2 Code Coverage
-                th.text-center.col-xs-2 Tests
+                th.col-xs-1.text-center #
+                th.col-xs-7 Class
+                th.col-xs-1.text-center Assertions
+                th.col-xs-1.text-center Time
+                th.col-xs-2.text-center Tests
             tbody
-              tr
-                td 1.
-                td Class
-                td src/emPHPasis/Test.php
-                td
-                  .progress.progress-xs
-                    .progress-bar.progress-bar-info(style='width: 55%')
-                      | 55.00%
-                td
-                  .progress.progress-xs
-                    .progress-bar.progress-bar-success(style='width: 55%', title='55.00%')
-                      | 55 Passed
-                    .progress-bar.progress-bar-warning(style='width: 10%', title='10.00%')
-                      | 10 Skipped
-                    .progress-bar.progress-bar-danger(style='width: 5%', title='5.00%')
-                      | 5 Failed
-                    .progress-bar.progress-bar-danger(style='width: 30%', title='30.00%')
-                      | 30 Errors
-              tr
-                td 2.
-                td Trait
-                td src/emPHPasis/Traits/Caching.php
-                td
-                  .progress.progress-xs
-                    .progress-bar.progress-bar-info(style='width: 55%')
-                      | 55.00%
-                td
-                  .progress.progress-xs
-                    .progress-bar.progress-bar-success(style='width: 55%', title='55.00%')
-                      | 55 Passed
-                    .progress-bar.progress-bar-warning(style='width: 10%', title='10.00%')
-                      | 10 Skipped
-                    .progress-bar.progress-bar-danger(style='width: 5%', title='5.00%')
-                      | 5 Failed
-                    .progress-bar.progress-bar-danger(style='width: 30%', title='30.00%')
-                      | 30 Errors
+              each test, index in tests
+                tr
+                  td.text-center #{index + 1}
+                  td #{test.class}
+                  td.text-center #{test.assertions}
+                  td.text-center #{test.time}
+                  td.text-center
+                    .progress.progress-xs
+                      .progress-bar.progress-bar-success(style='width: '+test.testsPercentage.passed+'%', title=test.testsPercentage.passed+'%')
+                        | #{test.tests.passed} Passed
+                      if test.tests.skipped > 0
+                        .progress-bar.progress-bar-warning(style='width: '+test.testsPercentage.skipped+'%', title=test.testsPercentage.skipped+'%')
+                          | #{test.tests.skipped} Skipped
+                      if test.tests.failures > 0
+                        .progress-bar.progress-bar-danger(style='width: '+test.testsPercentage.failures+'%', title=test.testsPercentage.failures+'%')
+                          | #{test.tests.failures} Failed
+                      if test.tests.errors > 0
+                        .progress-bar.progress-bar-danger(style='width: '+test.testsPercentage.errors+'%', title=test.testsPercentage.errors+'%')
+                          | #{test.tests.errors} Errors
         .box-footer.clearfix
-          ul.pagination.pagination-sm.no-margin.pull-right
-            li
-              a(href='#') «
-            li
-              a(href='#') 1
-            li
-              a(href='#') 2
-            li
-              a(href='#') 3
-            li
-              a(href='#') »
