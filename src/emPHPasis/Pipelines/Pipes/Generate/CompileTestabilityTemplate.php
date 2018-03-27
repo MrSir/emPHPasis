@@ -74,46 +74,81 @@ class CompileTestabilityTemplate extends Pipe
 
                     $tests = $junit['totals']['tests'];
 
+                    // analysis
+                    $assertionsTestRatio = $this->formatRatio(
+                        $junit['totals']['assertions'],
+                        $tests['number']
+                    );
+                    $testsMethodRatio = $this->formatRatio(
+                        $tests['number'],
+                        $coverageXML['methods']['executable']
+                    );
+                    $percentTestsPassing = $this->formatRatio(
+                        $tests['number'] - $tests['errors'] - $tests['failures'] - $tests['skipped'],
+                        $tests['number'],
+                        2,
+                        true
+                    );
+
+                    // indexGraph values
+                    $assertionsTestRatioNormalized = $this->normalize(
+                        $assertionsTestRatio,
+                        $thresholds->testability->assertionsTestRatio->high
+                    );
+                    $testsMethodRatioNormalized = $this->normalize(
+                        $testsMethodRatio,
+                        $thresholds->testability->testsMethodRatio->high
+                    );
+                    $percentTestsPassingNormalized = $this->normalize(
+                        $percentTestsPassing,
+                        $thresholds->testability->percentTestsPassing->high
+                    );
+
                     $data = [
                         'route' => 'testability',
                         'title' => 'Testability',
                         'subject' => 'Code coverage and test analysis.',
+                        'indexGraph' => [
+                            'assertionsTestRatio' => $assertionsTestRatioNormalized,
+                            'testsMethodRatio' => $testsMethodRatioNormalized,
+                            'percentTestsPassing' => $percentTestsPassingNormalized,
+                        ],
                         'analysis' => [
-                            'assertionsTestRatio' => $this->formatRatio(
-                                $junit['totals']['assertions'],
-                                $tests['number']
+                            'index' => $this->computeIndex(
+                                [
+                                    $assertionsTestRatioNormalized,
+                                    $testsMethodRatioNormalized,
+                                    $percentTestsPassingNormalized,
+                                ]
                             ),
-                            'testsMethodRatio' => $this->formatRatio(
-                                $tests['number'],
-                                $coverageXML['methods']['executable']
-                            ),
-                            'percentTestsPassing' => $this->formatRatio(
-                                $tests['number'] - $tests['errors'] - $tests['failures'] - $tests['skipped'],
-                                $tests['number'],
-                                true
-                            ),
+                            'assertionsTestRatio' => $assertionsTestRatio,
+                            'testsMethodRatio' => $testsMethodRatio,
+                            'percentTestsPassing' => $percentTestsPassing,
                         ],
                         'stats' => [
                             'tests' => $tests,
                             'assertions' => $junit['totals']['assertions'],
-                            'coverage' => $cloverXML['totals']['coverage'],
+                            'files' => $cloverXML['files'],
                             'time' => $junit['totals']['time'],
                             'lines' => $coverageXML['lines'],
                             'methods' => $coverageXML['methods'],
                             'classes' => $coverageXML['classes'],
-                            'traits' => $coverageXML['traits'],
+                            'elements' => $cloverXML['elements'],
                         ],
                         'classes' => [],
                         'tests' => $junit['tests'],
                     ];
 
+                    // compute the index classes
+                    $this->computeClasses('index', $data, $thresholds);
+
                     // compute analysis classes
-                    foreach(array_keys($data['analysis']) as $key) {
+                    foreach (array_keys($data['analysis']) as $key) {
                         $this->computeClasses($key, $data, $thresholds);
                     }
 
                     // compute stats classes
-                    foreach(array_keys($data['stats']) as $key) {
+                    foreach (array_keys($data['stats']) as $key) {
                         $this->computeClasses($key, $data, $thresholds);
                     }
 
@@ -126,7 +161,9 @@ class CompileTestabilityTemplate extends Pipe
 
                     // write to output
                     $passable->getOutputInterface()
-                        ->writeln(Carbon::now() . ' Compiled testability template: ' . $templatePath . '/testability.html');
+                        ->writeln(
+                            Carbon::now() . ' Compiled testability template: ' . $templatePath . 'testability.html'
+                        );
 
                     // set the successful code and result
                     $code = $passable::SUCCESS_CODE;
@@ -149,21 +186,20 @@ class CompileTestabilityTemplate extends Pipe
     /**
      * This function computes the appropriate classes for each of the values
      *
-     * @param string   $key
-     * @param array    $data
+     * @param string $key
+     * @param array $data
      * @param stdClass $thresholds
      */
     private function computeClasses(string $key, array &$data, stdClass $thresholds)
     {
-        if ($key !== 'time') {
+        if ($key !== 'time' && $key !== 'files') {
             $stats = [
                 'tests',
                 'assertions',
-                'coverage',
                 'lines',
                 'methods',
                 'classes',
-                'traits'
+                'elements',
             ];
 
             switch (in_array($key, $stats)) {
@@ -172,7 +208,7 @@ class CompileTestabilityTemplate extends Pipe
                         'lines',
                         'methods',
                         'classes',
-                        'traits'
+                        'elements',
                     ];
 
                     switch (in_array($key, $percentageStats)) {
@@ -195,20 +231,20 @@ class CompileTestabilityTemplate extends Pipe
 
             $data['classes'][$key] = [
                 'backgroundClass' => $thresholds->classes->low->background_class,
-                'iconClass' => $thresholds->classes->low->icon_class
+                'iconClass' => $thresholds->classes->low->icon_class,
             ];
 
             if ($value >= $thresholds->testability->$key->low) {
                 $data['classes'][$key] = [
                     'backgroundClass' => $thresholds->classes->medium->background_class,
-                    'iconClass' => $thresholds->classes->medium->icon_class
+                    'iconClass' => $thresholds->classes->medium->icon_class,
                 ];
             }
 
             if ($value >= $thresholds->testability->$key->high) {
                 $data['classes'][$key] = [
                     'backgroundClass' => $thresholds->classes->high->background_class,
-                    'iconClass' => $thresholds->classes->high->icon_class
+                    'iconClass' => $thresholds->classes->high->icon_class,
                 ];
             }
         }

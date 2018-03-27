@@ -121,10 +121,10 @@ class ReadJUnitReport extends Pipe
                     'skipped' => (int)$attributes->skipped,
                 ],
                 'testsPercentage' => [
-                    'passed' => $this->formatRatio($passedTests, $attributes->tests, true),
-                    'errors' => $this->formatRatio($attributes->errors, $attributes->tests, true),
-                    'failures' => $this->formatRatio($attributes->failures, $attributes->tests, true),
-                    'skipped' => $this->formatRatio($attributes->skipped, $attributes->tests, true),
+                    'passed' => $this->formatRatio($passedTests, $attributes->tests, 2, true),
+                    'errors' => $this->formatRatio($attributes->errors, $attributes->tests, 2, true),
+                    'failures' => $this->formatRatio($attributes->failures, $attributes->tests, 2, true),
+                    'skipped' => $this->formatRatio($attributes->skipped, $attributes->tests, 2, true),
                 ]
             ];
         }

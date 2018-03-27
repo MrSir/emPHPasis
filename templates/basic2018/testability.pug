@@ -4,18 +4,65 @@ block content
   // summary boxes
   .row
     // Testability Index
-    .col-lg-12.col-md-12.col-xs-12
-      .small-box.bg-green
+    .col-lg-3.col-md-12.col-xs-12
+      .box.box-success
+        .box-header
+          h3.box-title Index Graph
+        .box-body
+          .radarChart
+          script(type="text/javascript").
+            /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+
+            //////////////////////////////////////////////////////////////
+            //////////////////////// Set-Up //////////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var margin = { top: 20, right: 55, bottom: 20, left: 55 },
+              width = 142,
+              height = 172;
+
+            //////////////////////////////////////////////////////////////
+            ////////////////////////// Data //////////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var data = [
+              [
+                { axis: "Avg. Assertions/Test", value: '#{indexGraph.assertionsTestRatio}' },
+                { axis: "Avg. Tests/Method", value: '#{indexGraph.testsMethodRatio}' },
+                { axis: "Tests Passing", value: '#{indexGraph.percentTestsPassing}' },
+              ]
+            ];
+            //////////////////////////////////////////////////////////////
+            //////////////////// Draw the Chart //////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var color = d3.scale.ordinal()
+              .range(["#00a65a"]);
+
+            var radarChartOptions = {
+              w: width,
+              h: height,
+              margin: margin,
+              maxValue: 1,
+              labelFactor: 1.42,
+              levels: 5,
+              roundStrokes: true,
+              color: color,
+            };
+            //Call function to draw the Radar chart
+            RadarChart(".radarChart", data, radarChartOptions);
+    .col-lg-9.col-md-12.col-xs-12
+      .small-box(class=classes.index.backgroundClass)
         .inner
           h3
-            | 89
+            | #{analysis.index}
           p Testability Index
         .icon
-          i.fas.fa-check-circle
+          i.fas(class=classes.index.iconClass)
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
-    .col-lg-4.col-xs-12
+    .col-lg-3.col-xs-12
       .small-box(class=classes.assertionsTestRatio.backgroundClass)
         .inner
           h3
@@ -26,18 +73,18 @@ block content
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
-    .col-lg-4.col-xs-12
+    .col-lg-3.col-xs-12
       .small-box(class=classes.testsMethodRatio.backgroundClass)
         .inner
           h3
             | #{analysis.testsMethodRatio}
-          p Avg Tests/Method
+          p Avg. Tests/Method
         .icon
           i.fas(class=classes.testsMethodRatio.iconClass)
         a.small-box-footer(href='#')
           | More info&nbsp;
           i.fa.fa-arrow-circle-right
-    .col-lg-4.col-xs-12
+    .col-lg-3.col-xs-12
       .small-box(class=classes.percentTestsPassing.backgroundClass)
         .inner
           h3
@@ -72,14 +119,13 @@ block content
               .icon
                 i.fas(class=classes.assertions.iconClass)
           .col-lg-3.col-xs-6
-            .small-box(class=classes.coverage.backgroundClass)
+            .small-box.bg-aqua
               .inner
                 h3
-                  | #{stats.coverage}
-                  sup(style='font-size: 20px') %
-                p Code Coverage
+                  | #{stats.files}
+                p Files
               .icon
-                i.fas.fa-times-circle
+                i.fas.fa-info-circle
           .col-lg-3.col-xs-6
             .small-box.bg-aqua
               .inner
@@ -87,7 +133,7 @@ block content
                   | #{stats.time}
                 p Execution Time
               .icon
-                i.fas.fa-question-circle
+                i.fas.fa-info-circle
           .col-lg-3.col-xs-6
             .small-box(class=classes.lines.backgroundClass)
               .inner
@@ -116,14 +162,14 @@ block content
               .icon
                 i.fas(class=classes.classes.iconClass)
           .col-lg-3.col-xs-6
-            .small-box(class=classes.traits.backgroundClass)
+            .small-box(class=classes.elements.backgroundClass)
               .inner
                 h3
-                  | #{stats.traits.executed}/#{stats.traits.executable}
-                  sup(style="font-size:20px") (#{stats.traits.percent}%)
-                p Traits Tested
+                  | #{stats.elements.executed}/#{stats.elements.executable}
+                  sup(style="font-size:20px") (#{stats.elements.percent}%)
+                p Elements Tested
               .icon
-                i.fas(class=classes.traits.iconClass)
+                i.fas(class=classes.elements.iconClass)
   .row
     .col-xs-12
       .box.box-success
@@ -158,4 +204,3 @@ block content
                       if test.tests.errors > 0
                         .progress-bar.progress-bar-danger(style='width: '+test.testsPercentage.errors+'%', title=test.testsPercentage.errors+'%')
                           | #{test.tests.errors} Errors
-        .box-footer.clearfix

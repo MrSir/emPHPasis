@@ -46,8 +46,12 @@
                 }
             },
             "testability": {
+                "index": {
+                    "high": 75,
+                    "low": 35
+                },
                 "assertionsTestRatio": {
-                    "high":  5,
+                    "high": 5,
                     "low": 2
                 },
                 "testsMethodRatio": {
@@ -66,10 +70,6 @@
                     "high": 5000,
                     "low": 2000
                 },
-                "coverage": {
-                    "high": 75,
-                    "low": 35
-                },
                 "lines": {
                     "high": 75,
                     "low": 35
@@ -82,7 +82,7 @@
                     "high": 75,
                     "low": 35
                 },
-                "traits": {
+                "elements": {
                     "high": 75,
                     "low": 35
                 }

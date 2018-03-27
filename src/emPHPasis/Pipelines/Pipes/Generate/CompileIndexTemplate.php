@@ -69,6 +69,9 @@ class CompileIndexTemplate extends Pipe
                     // copy css
                     shell_exec('cp -R '. $templatePath . 'css ' . $reportPath . 'css');
 
+                    // copy js
+                    shell_exec('cp -R '. $templatePath . 'js ' . $reportPath . 'js');
+
                     // instantiate pug engine
                     $pugEngine = new Pug();
 
@@ -77,7 +80,7 @@ class CompileIndexTemplate extends Pipe
 
                     // write to output
                     $passable->getOutputInterface()
-                        ->writeln(Carbon::now() . ' Compiled index template: ' . $templatePath .'/index.html');
+                        ->writeln(Carbon::now() . ' Compiled index template: ' . $templatePath .'index.html');
 
                     // set the successful code and result
                     $code = $passable::SUCCESS_CODE;

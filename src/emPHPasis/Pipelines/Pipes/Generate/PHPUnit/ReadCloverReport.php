@@ -64,10 +64,11 @@ class ReadCloverReport extends Pipe
                     $metricsAttributes = $xml->project->metrics->attributes();
 
                     $reportData['phpunit']['cloverXML'] = [
-                        'totals' => [
-                            'elements' => $metricsAttributes->elements,
-                            'coveredElements' => $metricsAttributes->coveredelements,
-                            'coverage' => $this->formatRatio(
+                        'files' => (int)$metricsAttributes->files,
+                        'elements' => [
+                            'executable' =>(int)$metricsAttributes->elements,
+                            'executed' => (int)$metricsAttributes->coveredelements,
+                            'percent' => $this->formatRatio(
                                 $metricsAttributes->coveredelements,
                                 $metricsAttributes->elements,
                                 true
