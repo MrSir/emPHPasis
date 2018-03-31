@@ -1,0 +1,89 @@
+extends components/master.pug
+
+block content
+  // summary boxes
+  .row
+    // Complexity Index
+    .col-lg-3.col-md-12.col-xs-12
+      .box.box-success
+        .box-header
+          h3.box-title Index Graph
+        .box-body
+          .radarChart
+          script(type="text/javascript").
+            /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+
+            //////////////////////////////////////////////////////////////
+            //////////////////////// Set-Up //////////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var margin = { top: 20, right: 55, bottom: 20, left: 55 },
+              width = 142,
+              height = 172;
+
+            //////////////////////////////////////////////////////////////
+            ////////////////////////// Data //////////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var data = [
+              [
+                { axis: "Avg. Assertions/Test", value: '#{indexGraph.assertionsTestRatio}' },
+                { axis: "Avg. Tests/Method", value: '#{indexGraph.testsMethodRatio}' },
+                { axis: "Tests Passing", value: '#{indexGraph.percentTestsPassing}' },
+              ]
+            ];
+            //////////////////////////////////////////////////////////////
+            //////////////////// Draw the Chart //////////////////////////
+            //////////////////////////////////////////////////////////////
+
+            var color = d3.scale.ordinal()
+              .range(["#00a65a"]);
+
+            var radarChartOptions = {
+              w: width,
+              h: height,
+              margin: margin,
+              maxValue: 1,
+              labelFactor: 1.42,
+              levels: 5,
+              roundStrokes: true,
+              color: color,
+            };
+            //Call function to draw the Radar chart
+            RadarChart(".radarChart", data, radarChartOptions);
+    .col-lg-9.col-md-12.col-xs-12
+      .small-box(class=classes.index.backgroundClass)
+        .inner
+          h3
+            | #{analysis.index}
+          p Complexity Index
+        .icon
+          i.fas(class=classes.index.iconClass)
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+    .col-lg-9.col-md-12.col-xs-12
+      .small-box(class=classes.index.backgroundClass)
+        .inner
+          h3
+            | #{analysis.index}
+          p The Analysis
+        .icon
+          i.fas(class=classes.index.iconClass)
+        a.small-box-footer(href='#')
+          | More info&nbsp;
+          i.fa.fa-arrow-circle-right
+  .row
+    .col-xs-12
+      .box.box-success
+        .box-header
+          h3.box-title Statistics
+        .box-body
+          .col-lg-3.col-xs-6
+            .small-box(class=classes.tests.backgroundClass)
+              .inner
+                h3
+                  | #{stats.tests.number}
+                p Tests
+              .icon
+                i.fas(class=classes.tests.iconClass)

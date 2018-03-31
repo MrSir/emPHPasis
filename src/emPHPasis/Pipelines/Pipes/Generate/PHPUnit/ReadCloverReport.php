@@ -71,6 +71,7 @@ class ReadCloverReport extends Pipe
                             'percent' => $this->formatRatio(
                                 $metricsAttributes->coveredelements,
                                 $metricsAttributes->elements,
+                                2,
                                 true
                             ),
                         ],

@@ -9,7 +9,10 @@
 namespace emPHPasis\Pipelines;
 
 use emPHPasis\Pipelines\Passables;
+use emPHPasis\Pipelines\Pipes\Generate\CompileComplexityTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\CompileIndexTemplate;
+use emPHPasis\Pipelines\Pipes\Generate\CompileMaintainabilityTemplate;
+use emPHPasis\Pipelines\Pipes\Generate\CompileScalabilityTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\CompileTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\CompileTestabilityTemplate;
 use emPHPasis\Pipelines\Pipes\Generate\FindConfig;
@@ -93,7 +96,10 @@ class Generate extends Pipeline
                     //TODO
 
                     CompileIndexTemplate::class,
+                    CompileMaintainabilityTemplate::class,
                     CompileTestabilityTemplate::class,
+                    CompileComplexityTemplate::class,
+                    CompileScalabilityTemplate::class,
                 ]
             )
             ->then(

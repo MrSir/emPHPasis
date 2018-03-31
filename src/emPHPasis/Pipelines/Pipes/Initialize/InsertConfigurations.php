@@ -52,8 +52,66 @@ class InsertConfigurations extends Pipe
                     'report_directory' => 'build/emPHPasis/',
                     'paths' => [
                         "./src/",
-                        "./tests/"
-                    ]
+                        "./tests/",
+                    ],
+                    "thresholds" => [
+                        "classes" => [
+                            "high" => [
+                                "background_class" => "bg-green",
+                                "icon_class" => "fa-check-circle",
+                            ],
+                            "medium" => [
+                                "background_class" => "bg-yellow",
+                                "icon_class" => "fa-exclamation-circle",
+                            ],
+                            "low" => [
+                                "background_class" => "bg-red",
+                                "icon_class" => "fa-times-circle",
+                            ],
+                        ],
+                        "testability" => [
+                            "index" => [
+                                "high" => 75,
+                                "low" => 35,
+                            ],
+                            "assertionsTestRatio" => [
+                                "high" => 5,
+                                "low" => 2,
+                            ],
+                            "testsMethodRatio" => [
+                                "high" => 3,
+                                "low" => 1,
+                            ],
+                            "percentTestsPassing" => [
+                                "high" => 90,
+                                "low" => 50,
+                            ],
+                            "tests" => [
+                                "high" => 1000,
+                                "low" => 250,
+                            ],
+                            "assertions" => [
+                                "high" => 5000,
+                                "low" => 2000,
+                            ],
+                            "lines" => [
+                                "high" => 75,
+                                "low" => 35,
+                            ],
+                            "methods" => [
+                                "high" => 75,
+                                "low" => 35,
+                            ],
+                            "classes" => [
+                                "high" => 75,
+                                "low" => 35,
+                            ],
+                            "elements" => [
+                                "high" => 75,
+                                "low" => 35,
+                            ],
+                        ],
+                    ],
                 ];
 
                 // reset the config
