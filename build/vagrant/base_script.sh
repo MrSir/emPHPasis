@@ -16,7 +16,7 @@ apt-get update
 apt-get -y install vim curl
 
 # install php and enable it should be v7.0#
-apt-get -y install php7.2 php-curl php-gd php-imap php-xdebug php-xml php7.2-bcmath php-mbstring php-zip
+apt-get -y install php7.3 php7.3-curl php7.3-gd php7.3-imap php7.3-xml php7.3-mbstring php7.3-zip
 phpenmod gd
 phpenmod imap
 
